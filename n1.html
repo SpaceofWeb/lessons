@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<script>
+
+
+let arr = [1, 6, 7, 8, 10, 11, 12, 13, 14, 15];
+
+function bs(a, n) {
+	let h = Math.floor(a.length/2);
+
+	if (a.length == 0) return -1;
+
+	if (a[h] == n) {
+		return h;
+	} else if (a[h] < n) {
+
+		let a1 = a.slice(h+1, a.length);
+		let out = bs(a1, n);
+
+		if (out == -1) return -1;
+
+		return h+1+out;
+
+	} else {
+
+		let a1 = a.slice(0, h);
+		return bs(a1, n);
+
+	}
+}
+
+
+console.log(bs(arr, 13));
+
+</script>
+
+</body>
+</html>
