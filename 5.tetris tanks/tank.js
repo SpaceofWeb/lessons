@@ -16,6 +16,8 @@ function Tank(x, y, tx, ty, map) {
 
 
 Tank.prototype.show = function() {
+	if (this.dead) return;
+
 	fill(255);
 
 	for (let i = 0; i < this.map[this.dir].length; i++) {
@@ -76,7 +78,20 @@ Tank.prototype.collide = function(bullet) {
 			let t = map[i][j];
 
 			if (t && this.pos.x+i == bullet.pos.x && this.pos.y+j == bullet.pos.y) {
-				if (--this.lives <= 0) startGame();
+				this.dead = true;
+
+				setTimeout(() => {
+					this.dead = false;
+				}, 150);
+
+				if (--this.lives <= 0) {
+					this.dead = true;
+
+					setTimeout(() => {
+						this.dead = false;
+						startGame();
+					}, 300);
+				}
 
 				return true;
 			}
