@@ -5,6 +5,7 @@ function Tank(x, y, tx, ty, map) {
 	this.map = map;
 	this.lives = 5;
 	this.dir = 'up';
+	this.dead = false;
 	this.key = {
 		up: false,
 		left: false,
