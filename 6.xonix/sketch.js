@@ -95,7 +95,7 @@ function keyPressed() {
 function startGame() {
 	player = new Player();
 
-	for (let i = 0; i < 1; i++) {
+	for (let i = 0; i < 5; i++) {
 		enemyes[i] = new Enemy();
 	}
 
