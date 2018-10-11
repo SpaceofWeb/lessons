@@ -1,11 +1,11 @@
-let blob = [];
+let players;
 let blobs = [];
-let bio = [];
-
-let event = {
-	blob: null,
-	clicked: false,
+let swarms = [];
+let evt = {
+	blobsFrom: [],
+	blobTo: null,
 };
+
 
 
 
@@ -13,10 +13,25 @@ let event = {
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 
-	// setFrameRate(10);
 	textAlign(CENTER);
 
-	addBlobs();
+	players = [
+		{
+			id: 0,
+			name: 'me',
+			color: color(0, 255, 0),
+		}, {
+			id: 1,
+			name: 'enemy',
+			color: color(255, 0, 0),
+		}, {
+			id: 2,
+			name: 'neutral',
+			color: color(200),
+		}
+	];
+
+	startGame();
 }
 
 
@@ -24,150 +39,160 @@ function setup() {
 function draw() {
 	background(0);
 
-	for (let i = 0; i < blob.length; i++) {
-		blob[i].show();
-		if (blob[i].count < blob[i].maxBio) {
-			blob[i].count = blob[i].count + 0.2;
-		}
-	}
-
 	for (let i = 0; i < blobs.length; i++) {
 		blobs[i].show();
 	}
 
-	stroke(255);
-	strokeWeight(6);
-	for (let i = bio.length-1; i >= 0; i--) {
-		let d = bio[i].endBlob.pos.dist(bio[i].points[0]);
 
-		if (d < bio[i].endBlob.r) {
-			bio[i].endBlob.count -= bio[i].count;
+	drawSwarms();
+	drawLines();
+}
 
-			if (bio[i].endBlob.count < 0) {
-				blob.push(bio[i].endBlob);
-				bio[i].endBlob.color = color(0, 255, 0);
-				bio[i].endBlob.count = 0;
+
+
+function drawSwarms() {
+	for (let i = swarms.length-1; i >= 0; i--) {
+		let s = swarms[i];
+		let startBlob = blobs[s.startBlobId];
+		let endBlob = blobs[s.endBlobId];
+
+		if (s.checkDistance()) {
+			if (startBlob.pId === endBlob.pId) {
+
+				endBlob.count += s.count;
+
+			} else {
+
+				endBlob.count -= s.count;
+
+				if (endBlob.count <= 0) {
+					endBlob.count = abs(endBlob.count);
+					endBlob.pId = 0;
+				}
 			}
 
-			bio.splice(i, 1);
+			swarms.splice(i, 1);
 			continue;
 		}
 
-		for (let j = 0; j < bio[i].points.length; j++) {
-			let p = bio[i].points[j];
-
-			p.add(bio[i].dir);
-
-			point(p.x, p.y);
-		}
+		s.show();
+		s.move();
 	}
+}
 
 
-	let b = event.blob;
 
-	if (b) {
-		fill(255);
-		stroke(255);
-		strokeWeight(4);
-		line(b.pos.x, b.pos.y, b.mx, b.my);
+function drawLines() {
+	stroke(255);
+	strokeWeight(4);
+
+	for (let i = 0; i < evt.blobsFrom.length; i++) {
+		let b = blobs[evt.blobsFrom[i]];
+
+		line(b.pos.x, b.pos.y, mouseX, mouseY);
 	}
 }
 
 
 
 function mousePressed() {
-	let v = createVector(mouseX, mouseY);
-
-	if (blob[0].r < blob[0].pos.dist(v)) return;
-
-	event.blob = blob[0];
-	event.clicked = true;
-	event.blob.mx = mouseX;
-	event.blob.my = mouseY;
+	addBlobToQueue();
 }
 
 
 
 function mouseDragged() {
-	if (event.blob) {
-		event.blob.mx = mouseX;
-		event.blob.my = mouseY;
-	}
+	addBlobToQueue();
 }
 
 
 
 function mouseReleased() {
 	for (let i = 0; i < blobs.length; i++) {
-		let v = createVector(mouseX, mouseY);
+		let b = blobs[i];
 
-		if (blobs[i].r > blobs[i].pos.dist(v)) {
-			let b = {};
+		let d = createVector(mouseX, mouseY).dist(b.pos);
 
-			b.startBlob =  event.blob;
-			b.endBlob =  blobs[i];
-			b.pos =  event.blob.pos.copy();
-			b.dir =  b.endBlob.pos.copy().sub(b.pos);
-			b.dir.setMag(3);
-			b.count = b.startBlob.count = b.startBlob.count / 2;
-
-			b.points = [];
-
-			for (let j = 0; j < 15; j++) {
-				let x = b.pos.x + random(-j*2, j*2);
-				let y = b.pos.y + random(-j*2, j*2);
-
-				b.points.push(createVector(x, y));
-			}
-
-			bio.push(b);
+		if (d < b.r) {
+			evt.blobTo = i;
+			attack();
+			return;
 		}
-
 	}
 
-	event.blob = null;
-	event.clicked = false;
+	evt = {
+		blobsFrom: [],
+		blobTo: null,
+	};
 }
 
 
 
 
 
-function addBlobs() {
-	blob[0] = new Blob(width/2, height/2, 60, color(0, 255, 0));
+function startGame() {
+	blobs.splice(0, blobs.length);
 
-	for (let i = 0; i < 10; i++) {
-		let x = random(60, width-60);
-		let y = random(60, height-60);
+	blobs.push(new Blob(players[0].id, 100, height/2, 60));
+	blobs.push(new Blob(players[1].id, width - 100, height/2, 60));
 
-		blobs[i] = new Blob(x, y, 35, color(200));
+	for (let i = 0, j = 1; i < 10; i++, j+=0.5) {
+		// let x = random(100, width - 100);
+		// let y = random(100, height - 100);
 
-		for (let j = 0; j < blobs.length; j++) {
-			if (blobs[i].pos.equals(blobs[j].pos)) continue;
+		let x = width / 2 + 100 * ((i % 2) ? 1 : -1);
+		let y = 110 * floor(j);
 
-			let r = blobs[i].r + blobs[j].r;
-			let v = blobs[i].pos.copy().sub(blobs[j].pos);
-
-			v.setMag(1);
-
-			while(r > blobs[i].pos.dist(blobs[j].pos)) {
-				blobs[i].pos.add(v);
-			}
-		}
+		blobs.push(new Blob(players[2].id, x, y, 45));
+		// blobs.push(new Blob(players[2].id, x, y, floor(random(30, 50))));
+		// blobs[i+2].slide();
 	}
+}
 
-	for (let j = 0; j < blobs.length; j++) {
-		if (blob[0].pos.equals(blobs[j].pos)) continue;
 
-		let r = blob[0].r + blobs[j].r;
-		let v = blob[0].pos.copy().sub(blobs[j].pos);
 
-		v.setMag(1);
+function addBlobToQueue() {
+	for (let i = 0; i < blobs.length; i++) {
+		if (blobs[i].pId !== 0) continue;
 
-		while(r > blob[0].pos.dist(blobs[j].pos)) {
-			blob[0].pos.add(v);
+		if (evt.blobsFrom.includes(i)) continue;
+
+
+		let d = createVector(mouseX, mouseY).dist(blobs[i].pos);
+
+		if (d < blobs[i].r) {
+			evt.blobsFrom.push(i);
+			break;
 		}
 	}
 }
+
+
+
+function attack() {
+	for (let i = 0; i < evt.blobsFrom.length; i++) {
+		if (evt.blobsFrom[i] === evt.blobTo) continue;
+
+		let b = blobs[evt.blobsFrom[i]];
+
+		let count = b.count/2;
+		let v = blobs[evt.blobTo].pos.copy();
+
+		v.sub(b.pos).setMag(1);
+
+		let s = new Swarm(b.pos.copy(), v, i, evt.blobTo, count);
+
+		b.count -= count;
+		swarms.push(s);
+	}
+
+	evt = {
+		blobsFrom: [],
+		blobTo: null,
+	};
+}
+
+
+
 
 
