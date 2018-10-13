@@ -37,6 +37,7 @@ function App() {
 	this.loadSprites('knight', 'idle', knightSprIdle);
 	this.loadSprites('knight', 'run', knightSprRun);
 	this.loadSprites('knight', 'attack', knightSprAttack);
+	this.loadSprites('knight', 'death', knightSprDeath);
 	this.loadSprites('dog', 'run', dogSpr);
 
 	this.player = new Knight(0, height, this.sprites.knight);
@@ -74,6 +75,13 @@ App.prototype.startGame = function() {
 	});
 
 
+	setInterval(() => {
+		this.addEnemy();
+
+		this.player.hp += 2;
+		// this.player.mp += 5;
+	}, 1000);
+
 
 	this.loop();
 };
@@ -103,6 +111,12 @@ App.prototype.draw = function() {
 	);
 
 
+	for (let i = 0; i < this.enemyes.length; i++) {
+		this.enemyes[i].show();
+		this.enemyes[i].move();
+	}
+
+
 	this.player.show();
 	this.player.move();
 };
@@ -122,24 +136,30 @@ App.prototype.randFloat = function(min, max) {
 
 
 App.prototype.addEnemy = function() {
-	let r = this.randInt(0, 3);
+	if (this.enemyes.length >= 10) return;
 
-	if (r == 1) {
-		let x = width - 128;
+	// let r = this.randInt(0, 3);
+	let r = 0;
 
-		this.enemyes.push(new Enemy(x, y, w, h, this.sprites.dog));
+	if (r == 0) {
+		let x = width - this.sprites.dog.run.w;
+		let y = height;
+
+		this.enemyes.push(new Enemy(x, y, this.sprites.dog));
 	}
 };
 
 
 
 App.prototype.loadSprites = function(name, state, spr) {
+	let h = (name == 'dog') ? 85 : 128;
+
 	let a = {
 		imgsLoaded: 0,
 		fullyLoaded: false,
 		imgs: [],
 		w: 0,
-		h: 128,
+		h: h,
 	};
 
 	for (let i = 0; i < spr.length; i++) {
@@ -154,11 +174,10 @@ App.prototype.loadSprites = function(name, state, spr) {
 
 				a.fullyLoaded = true;
 			}
-
-			a.imgs.push(img);
 		};
 
 		img.src = spr[i];
+		a.imgs.push(img);
 	}
 
 	if (!this.sprites[name]) this.sprites[name] = {};
@@ -175,3 +194,5 @@ App.prototype.loadSprites = function(name, state, spr) {
 
 
 let app = new App();
+
+
