@@ -11,9 +11,10 @@ function Knight(x, y, sprites) {
 	this.dir = 0;
 	this.speed = 4;
 	this.hp = 100;
+	this.mp = 100;
 	this.death = false;
-
-	ctx.font = '42px sans-serif';
+	this.shielded = false;
+	this.view = 1;
 }
 
 
@@ -22,12 +23,10 @@ function Knight(x, y, sprites) {
 Knight.prototype.show = function() {
 	let a = this.sprites[this.state];
 
-	if (this.framesCount >= this.framePerSecond) {
+	if (this.framesCount >= a.fps) {
 		this.framesCount = 0;
 
-		if (this.index + 1 === a.imgs.length && this.state == 'attack') {
-			this.setState('idle');
-		}
+		if (this.index + 1 === a.imgs.length) this.lastFrame();
 		this.index = (this.index + 1) % a.imgs.length;
 	}
 
@@ -47,14 +46,12 @@ Knight.prototype.show = function() {
 
 
 	this.framesCount++;
-	ctx.fillText(this.hp, 100, 100);
 };
 
 
 
 Knight.prototype.move = function() {
-	if (this.hp <= 0) this.die();
-
+	if (this.death) return;
 
 	let w = this.sprites[this.state].w;
 
@@ -66,6 +63,8 @@ Knight.prototype.move = function() {
 
 
 Knight.prototype.setDir = function(n) {
+	if (this.death) return;
+
 	if (n === 0) {
 		this.setState('idle');
 	} else if (n === -1) {
@@ -84,22 +83,43 @@ Knight.prototype.setDir = function(n) {
 
 
 
+Knight.prototype.lastFrame = function() {
+	if (this.state == 'attack') {
+
+		for (let i = app.enemies.length-1; i >= 0; i--) {
+			let e = app.enemies[i];
+
+			if (!e.agr) continue;
+
+			if (e.punch(15)) {
+				app.enemies.splice(i, 1);
+			}
+		}
+
+		this.setState('idle');
+
+	} else if (this.state == 'death') {
+
+		app.endGame();
+
+	}
+};
+
+
 
 Knight.prototype.attack = function(n) {
 	if (n == 1) {
 
 		this.setState('attack');
 
-		for (let i = app.enemyes.length-1; i >= 0; i--) {
-			let e = app.enemyes[i];
+	} else if (n == 3) {
 
-			if (!e.agr) continue;
+		this.addMp(-10);
 
-			if (e.punch(15)) {
-				app.enemyes.splice(i, 1);
-			}
-		}
-
+		let h = this.sprites[this.state].h;
+		app.swords.push(
+			new ThreeSwords(this.x, this.y - h/2, 50, 50, 40, this.view, app.skills.three)
+		);
 
 	}
 };
@@ -125,5 +145,39 @@ Knight.prototype.getRightCorner = function() {
 Knight.prototype.die = function() {
 	this.death = true;
 	this.setState('death');
+};
+
+
+
+Knight.prototype.addHp = function(n) {
+	if ((this.hp >= 100 && n > 0) || this.death) return;
+
+	this.hp += n;
+
+	app.setHp(this.hp);
+
+	if (this.hp <= 0) this.die();
+};
+
+
+
+Knight.prototype.addMp = function(n) {
+	if (this.mp >= 100 && n > 0) return;
+
+	this.mp += n;
+
+	app.setMp(this.mp);
+};
+
+
+
+Knight.prototype.shield = function() {
+	this.shielded = true;
+};
+
+
+
+Knight.prototype.unShield = function() {
+	this.shielded = false;
 };
 

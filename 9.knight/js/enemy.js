@@ -23,7 +23,7 @@ function Enemy(x, y, sprites) {
 Enemy.prototype.show = function() {
 	let a = this.sprites[this.state];
 
-	if (this.framesCount >= this.framePerSecond) {
+	if (this.framesCount >= a.fps) {
 		this.framesCount = 0;
 		this.index = (this.index + 1) % a.imgs.length;
 	}
@@ -64,8 +64,8 @@ Enemy.prototype.move = function() {
 
 	} else {
 
-		if (!p.death && this.attackCount >= this.attackSpeed) {
-			p.hp -= this.power;
+		if (!p.death && !p.shielded && this.attackCount >= this.attackSpeed) {
+			p.addHp(-this.power);
 			this.attackCount = 0;
 		}
 
@@ -91,4 +91,11 @@ Enemy.prototype.getRightCorner = function() {
 };
 
 
+
+Enemy.prototype.collide = function(s) {
+	let w = this.sprites[this.state].w;
+
+	return ((this.x < s.x && s.x < this.x + w) || 
+					(this.x < s.x + s.w && s.x + s.w < this.x + w));
+};
 
