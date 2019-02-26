@@ -19,7 +19,7 @@ function setup() {
 	snake = new Snake;
 	apple = new Apple;
 
-	setFrameRate(3);
+	setFrameRate(6);
 	textSize(24);
 }
 
@@ -61,7 +61,7 @@ function drawMap() {
 
 	for (let i = 0; i < cols; i++) {
 		for (let j = 0; j < rows; j++) {
-			ellipse(i * res, j * res, res, res);
+			rect(i * res, j * res, res, res);
 		}
 	}
 }

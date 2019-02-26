@@ -21,7 +21,7 @@ class Apple {
 	// Drawing apple on the map
 	draw() {
 		fill('red');
-		ellipse(this.pos.x * res, this.pos.y * res, res, res);
+		rect(this.pos.x * res, this.pos.y * res, res, res);
 	}
 
 

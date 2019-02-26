@@ -28,12 +28,12 @@ class Snake {
 		for (let b of this.body) {
 
 			if (this.pos.x === b.x && this.pos.y === b.y) {
-				fill('lime');
+				fill('green');
 			} else {
 				fill('blue');
 			}
 
-			ellipse(b.x * res, b.y * res, res, res);
+			rect(b.x * res, b.y * res, res, res);
 		}
 
 

@@ -122,7 +122,9 @@ App.prototype.startGame = function() {
 	}, 1000);
 
 
-	this.loop();
+	// setInterval(() => {
+		this.loop();
+	// }, 1000/24);
 };
 
 

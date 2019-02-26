@@ -30,6 +30,7 @@ Knight.prototype.show = function() {
 		this.index = (this.index + 1) % a.imgs.length;
 	}
 
+
 	let img = a.imgs[this.index];
 
 

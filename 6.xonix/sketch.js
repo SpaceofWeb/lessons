@@ -22,6 +22,7 @@ function setup() {
 
 function draw() {
 	fillMap();
+	// clear();
 
 	countPercents();
 
@@ -35,6 +36,8 @@ function draw() {
 		enemyes[i].move();
 		enemyes[i].draw();
 	}
+
+	text(floor(frameRate()), width - 100, 100);
 }
 
 
@@ -45,6 +48,8 @@ function fillMap() {
 
 	for (let i = 0; i < cols; i++) {
 		for (let j = 0; j < rows; j++) {
+			if (map[i][j] == 0) continue;
+
 			if (map[i][j] == 1) {
 
 				fill(0, 150, 150);
