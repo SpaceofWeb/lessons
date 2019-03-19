@@ -1,34 +1,16 @@
-let raw = [{"x":0,"y":0,"n":0,"state":0,"show":false},{"x":64,"y":0,"n":1,"state":0,"show":false},{"x":128,"y":0,"n":2,"state":0,"show":false},{"x":192,"y":0,"n":3,"state":0,"show":false},{"x":256,"y":0,"n":4,"state":1,"show":false},{"x":320,"y":0,"n":5,"state":-1,"show":false},{"x":384,"y":0,"n":6,"state":1,"show":false},{"x":448,"y":0,"n":7,"state":0,"show":false},{"x":512,"y":0,"n":8,"state":1,"show":false},{"x":576,"y":0,"n":9,"state":-1,"show":false},{"x":0,"y":64,"n":10,"state":0,"show":false},{"x":64,"y":64,"n":11,"state":0,"show":false},{"x":128,"y":64,"n":12,"state":0,"show":false},{"x":192,"y":64,"n":13,"state":0,"show":false},{"x":256,"y":64,"n":14,"state":1,"show":false},{"x":320,"y":64,"n":15,"state":1,"show":false},{"x":384,"y":64,"n":16,"state":1,"show":false},{"x":448,"y":64,"n":17,"state":0,"show":false},{"x":512,"y":64,"n":18,"state":1,"show":false},{"x":576,"y":64,"n":19,"state":1,"show":false},{"x":0,"y":128,"n":20,"state":0,"show":false},{"x":64,"y":128,"n":21,"state":0,"show":false},{"x":128,"y":128,"n":22,"state":0,"show":false},{"x":192,"y":128,"n":23,"state":0,"show":false},{"x":256,"y":128,"n":24,"state":1,"show":false},{"x":320,"y":128,"n":25,"state":1,"show":false},{"x":384,"y":128,"n":26,"state":1,"show":false},{"x":448,"y":128,"n":27,"state":0,"show":false},{"x":512,"y":128,"n":28,"state":0,"show":false},{"x":576,"y":128,"n":29,"state":0,"show":false},{"x":0,"y":192,"n":30,"state":1,"show":false},{"x":64,"y":192,"n":31,"state":1,"show":false},{"x":128,"y":192,"n":32,"state":1,"show":false},{"x":192,"y":192,"n":33,"state":0,"show":false},{"x":256,"y":192,"n":34,"state":1,"show":false},{"x":320,"y":192,"n":35,"state":-1,"show":false},{"x":384,"y":192,"n":36,"state":1,"show":false},{"x":448,"y":192,"n":37,"state":0,"show":false},{"x":512,"y":192,"n":38,"state":0,"show":false},{"x":576,"y":192,"n":39,"state":0,"show":false},{"x":0,"y":256,"n":40,"state":2,"show":false},{"x":64,"y":256,"n":41,"state":-1,"show":false},{"x":128,"y":256,"n":42,"state":2,"show":false},{"x":192,"y":256,"n":43,"state":0,"show":false},{"x":256,"y":256,"n":44,"state":1,"show":false},{"x":320,"y":256,"n":45,"state":1,"show":false},{"x":384,"y":256,"n":46,"state":1,"show":false},{"x":448,"y":256,"n":47,"state":0,"show":false},{"x":512,"y":256,"n":48,"state":0,"show":false},{"x":576,"y":256,"n":49,"state":0,"show":false},{"x":0,"y":320,"n":50,"state":3,"show":false},{"x":64,"y":320,"n":51,"state":-1,"show":false},{"x":128,"y":320,"n":52,"state":2,"show":false},{"x":192,"y":320,"n":53,"state":0,"show":false},{"x":256,"y":320,"n":54,"state":0,"show":false},{"x":320,"y":320,"n":55,"state":0,"show":false},{"x":384,"y":320,"n":56,"state":0,"show":false},{"x":448,"y":320,"n":57,"state":0,"show":false},{"x":512,"y":320,"n":58,"state":0,"show":false},{"x":576,"y":320,"n":59,"state":0,"show":false},{"x":0,"y":384,"n":60,"state":-1,"show":false},{"x":64,"y":384,"n":61,"state":3,"show":false},{"x":128,"y":384,"n":62,"state":3,"show":false},{"x":192,"y":384,"n":63,"state":2,"show":false},{"x":256,"y":384,"n":64,"state":1,"show":false},{"x":320,"y":384,"n":65,"state":1,"show":false},{"x":384,"y":384,"n":66,"state":1,"show":false},{"x":448,"y":384,"n":67,"state":1,"show":false},{"x":512,"y":384,"n":68,"state":0,"show":false},{"x":576,"y":384,"n":69,"state":0,"show":false},{"x":0,"y":448,"n":70,"state":1,"show":false},{"x":64,"y":448,"n":71,"state":3,"show":false},{"x":128,"y":448,"n":72,"state":-1,"show":false},{"x":192,"y":448,"n":73,"state":-1,"show":false},{"x":256,"y":448,"n":74,"state":1,"show":false},{"x":320,"y":448,"n":75,"state":1,"show":false},{"x":384,"y":448,"n":76,"state":-1,"show":false},{"x":448,"y":448,"n":77,"state":1,"show":false},{"x":512,"y":448,"n":78,"state":0,"show":false},{"x":576,"y":448,"n":79,"state":0,"show":false},{"x":0,"y":512,"n":80,"state":0,"show":false},{"x":64,"y":512,"n":81,"state":2,"show":false},{"x":128,"y":512,"n":82,"state":-1,"show":false},{"x":192,"y":512,"n":83,"state":3,"show":false},{"x":256,"y":512,"n":84,"state":1,"show":false},{"x":320,"y":512,"n":85,"state":1,"show":false},{"x":384,"y":512,"n":86,"state":1,"show":false},{"x":448,"y":512,"n":87,"state":1,"show":false},{"x":512,"y":512,"n":88,"state":0,"show":false},{"x":576,"y":512,"n":89,"state":0,"show":false},{"x":0,"y":576,"n":90,"state":0,"show":false},{"x":64,"y":576,"n":91,"state":1,"show":false},{"x":128,"y":576,"n":92,"state":1,"show":false},{"x":192,"y":576,"n":93,"state":1,"show":false},{"x":256,"y":576,"n":94,"state":0,"show":false},{"x":320,"y":576,"n":95,"state":0,"show":false},{"x":384,"y":576,"n":96,"state":0,"show":false},{"x":448,"y":576,"n":97,"state":0,"show":false},{"x":512,"y":576,"n":98,"state":0,"show":false},{"x":576,"y":576,"n":99,"state":0,"show":false}];
-
-
-
-function parseRaw() {
-	for (let i = 0; i < raw.length; i++) {
-		let r = raw[i];
-		let c = cells.push(new Cell(r.x, r.y, r.n));
-		cells[c-1].state = r.state;
-		cells[c-1].show = r.show;
-	}
-
-	console.log('done');
-}
-
-
-
-
 let rows = 10;
 let res = 64;
-let bombsCount = 1;
+let bombsCount = 10;
+let flagsCount = 0;
 let cells = [];
 let gameEnded = false;
 
-let lines = [];
+
 
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 
-	// parseRaw();
 	setCells();
 	setBombs();
 	setStates();
@@ -40,6 +22,9 @@ function setup() {
 
 
 function draw() {
+	textAlign(CENTER, CENTER);
+	background(255);
+
 	stroke(100);
 	strokeWeight(1);
 	noFill();
@@ -57,33 +42,57 @@ function draw() {
 	}
 
 
-	// drawLines();
+	fill(150);
+	textAlign(LEFT, CENTER);
+	text(`Flags: ${flagsCount} from ${bombsCount}`, 10, rows * res + res / 3);
 }
 
 
 
-function mousePressed() {
-	if (gameEnded) return;
-
+function mousePressed(e) {
 	let x = floor(mouseX / res);
 	let y = floor(mouseY / res);
-
 	let idx = y * rows + x;
-	click(idx, x, y);
+
+	if (e.button === 2) {
+		setFlag(idx);
+	} else {
+		if (gameEnded) return;
+
+		click(idx, x, y);
+	}
+
+	if (flagsCount === bombsCount) {
+		checkState();
+	}
 }
 
 
 
 function click(idx, x, y) {
-	if (cells[idx].state === -1) endGame(); 
+	if (!cells[idx].flagged && cells[idx].state === -1) loose(); 
 	else showCells(idx, x, y); 
 }
 
 
 
+function setFlag(idx) {
+	if (cells[idx].show) return;
+
+	if (cells[idx].flagged) {
+		cells[idx].flagged = false;
+		flagsCount--;
+	} else {
+		cells[idx].flagged = true;
+		flagsCount++;
+	}
+}
+
 
 
 function showCells(idx, x, y) {
+	if (cells[idx].flagged) return;
+
 	showCell(idx);
 
 	if (cells[idx].state > 0) return;
@@ -91,6 +100,7 @@ function showCells(idx, x, y) {
 
 	let nx, ny;
 
+	// UP
 	nx = x;
 	ny = y - 1;
 
@@ -103,7 +113,7 @@ function showCells(idx, x, y) {
 	}
 
 
-
+	// DOWN
 	nx = x;
 	ny = y + 1;
 
@@ -116,7 +126,7 @@ function showCells(idx, x, y) {
 	}
 
 
-
+	// LEFT
 	nx = x - 1;
 	ny = y;
 
@@ -129,7 +139,7 @@ function showCells(idx, x, y) {
 	}
 
 
-
+	// RIGHT
 	nx = x + 1;
 	ny = y;
 
@@ -141,46 +151,6 @@ function showCells(idx, x, y) {
 			&& !cells[id].show) showCells(id, nx, ny);
 	}
 }
-
-
-
-
-// function showCells1(idx, x, y, from=null) {
-// 	showCell(idx);
-
-// 	if (from){
-// 		lines.push({
-// 			from: {
-// 				x: from.x * res + (res / 2),
-// 				y: from.y * res + (res / 2)
-// 			},
-// 			to: {
-// 				x: x * res + (res / 2),
-// 				y: y * res + (res / 2)
-// 			}
-// 		});
-// 	}
-// }
-
-
-
-// function drawLines() {
-// 	strokeWeight(2);
-// 	stroke(255, 0, 0);
-
-// 	for (let l of lines) {
-// 		line(l.from.x, l.from.y, l.to.x, l.to.y);
-
-// 		let offset = 10;
-// 		push();
-// 		let angle = atan2(l.from.y - l.to.y, l.from.x - l.to.x); //gets the angle of the line
-// 		translate(l.to.x, l.to.y); //translates to the destination vertex
-// 		rotate(angle-HALF_PI); //rotates the arrow point
-// 		triangle(-offset*0.5, offset, offset*0.5, offset, 0, -offset/2); //draws the arrow point as a triangle
-// 		pop();
-// 	}
-// }
-
 
 
 
@@ -241,13 +211,6 @@ function getNeighbours(x, y) {
 
 			let idx = (y + j) * rows + (x + i);
 
-			// let nY = (y + j);
-			// let nX = (x + i);
-			// let s = (cells[idx] && cells[idx].state) ? cells[idx].state : null;
-
-			// console.log({idx, nX, nY, s});
-
-
 			if (cells[idx].state === -1) n++;
 		}
 	}
@@ -257,7 +220,28 @@ function getNeighbours(x, y) {
 
 
 
-function endGame() {
+function checkState() {
+	let endGame = true;
+
+	for (let j = 0; j < rows; j++) {
+		for (let i = 0; i < rows; i++) {
+			let idx = j * rows + i;
+			
+			if (!((cells[idx].show && cells[idx].state !== -1) || 
+					(!cells[idx].show && cells[idx].state === -1 && 
+						cells[idx].flagged))) {
+
+				endGame = false;
+			}
+		}
+	}
+
+	if (endGame) win();
+}
+
+
+
+function end() {
 	gameEnded = true;
 
 	for (let j = 0; j < rows; j++) {
@@ -266,4 +250,27 @@ function endGame() {
 		}
 	}
 }
+
+
+
+function win() {
+	end();
+
+	setTimeout(() => {
+		alert('You win!');
+	}, 100);
+}
+
+
+
+function loose() {
+	end();
+
+	setTimeout(() => {
+		alert('You loose!');
+	}, 100);
+}
+
+
+
 
