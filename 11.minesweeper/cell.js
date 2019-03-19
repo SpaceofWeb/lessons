@@ -25,7 +25,7 @@ class Cell {
 					fill(240, 0, 0);
 					rect(this.x, this.y, res, res);
 					fill(0, 0, 0);
-					text(this.state, this.x + res / 2, this.y + res / 2);
+					text('B', this.x + res / 2, this.y + res / 2);
 				}
 
 			} else if (this.state === 0) {
